@@ -4,10 +4,9 @@ import com.bettercloud.vault.json.Json;
 import com.bettercloud.vault.json.JsonObject;
 import com.bettercloud.vault.vault.VaultTestUtils;
 import com.bettercloud.vault.vault.mock.EchoInputMockVault;
+import java.io.UnsupportedEncodingException;
 import org.eclipse.jetty.server.Server;
 import org.junit.Test;
-
-import java.io.UnsupportedEncodingException;
 
 import static junit.framework.TestCase.assertEquals;
 import static org.junit.Assert.assertNull;
@@ -106,9 +105,9 @@ public class DeleteTests {
 
         final RestResponse restResponse = new Rest()//NOPMD
                 .url("http://127.0.0.1:8999")
-                .optionalHeader("header1", "value1")
-                .optionalHeader("header2", "value2")
-                .optionalHeader("I am null", null)
+                .header("header1", "value1")
+                .header("header2", "value2")
+                .header("I am null", null)
                 .delete();
 
         assertEquals(204, restResponse.getStatus());

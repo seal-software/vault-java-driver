@@ -2,9 +2,8 @@ package com.bettercloud.vault.rest;
 
 import com.bettercloud.vault.json.Json;
 import com.bettercloud.vault.json.JsonObject;
-import org.junit.Test;
-
 import java.nio.charset.StandardCharsets;
+import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
@@ -131,10 +130,11 @@ public class PutTests {
     public void testPut_WithOptionalHeaders() throws RestException {
         final RestResponse restResponse = new Rest()
                 .url("https://httpbin.org/put")
-                .optionalHeader("black", "white")
-                .optionalHeader("day", "night")
-                .optionalHeader("two-part", "Header value")
-                .optionalHeader("I am null", null)
+                .header("black", "white")
+                .header("day", "night")
+                .header("two-part", "Header value")
+                .header("I am null", null)
+                .header("I am empty", "")
                 .put();
         assertEquals(200, restResponse.getStatus());
         assertEquals("application/json", restResponse.getMimeType());
@@ -147,6 +147,7 @@ public class PutTests {
         assertEquals("night", headers.getString("Day", null));
         assertEquals("Header value", headers.getString("Two-Part", null));
         assertNull(headers.getString("I am null", null));
+        assertNull(headers.getString("I am empty", null));
     }
 
 }

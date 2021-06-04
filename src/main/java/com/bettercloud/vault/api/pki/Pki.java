@@ -7,7 +7,6 @@ import com.bettercloud.vault.json.JsonObject;
 import com.bettercloud.vault.response.PkiResponse;
 import com.bettercloud.vault.rest.Rest;
 import com.bettercloud.vault.rest.RestResponse;
-
 import java.nio.charset.StandardCharsets;
 import java.util.List;
 
@@ -116,7 +115,7 @@ public class Pki {
                 final RestResponse restResponse = new Rest()//NOPMD
                         .url(String.format("%s/v1/%s/roles/%s", config.getAddress(), this.mountPath, roleName))
                         .header("X-Vault-Token", config.getToken())
-                        .optionalHeader("X-Vault-Namespace", this.nameSpace)
+                        .header("X-Vault-Namespace", this.nameSpace)
                         .body(requestJson.getBytes(StandardCharsets.UTF_8))
                         .connectTimeoutSeconds(config.getOpenTimeout())
                         .readTimeoutSeconds(config.getReadTimeout())
@@ -178,7 +177,7 @@ public class Pki {
                 final RestResponse restResponse = new Rest()//NOPMD
                         .url(String.format("%s/v1/%s/roles/%s", config.getAddress(), this.mountPath, roleName))
                         .header("X-Vault-Token", config.getToken())
-                        .optionalHeader("X-Vault-Namespace", this.nameSpace)
+                        .header("X-Vault-Namespace", this.nameSpace)
                         .connectTimeoutSeconds(config.getOpenTimeout())
                         .readTimeoutSeconds(config.getReadTimeout())
                         .sslVerification(config.getSslConfig().isVerify())
@@ -245,7 +244,7 @@ public class Pki {
                 final RestResponse restResponse = new Rest()//NOPMD
                         .url(String.format("%s/v1/%s/revoke", config.getAddress(), this.mountPath))
                         .header("X-Vault-Token", config.getToken())
-                        .optionalHeader("X-Vault-Namespace", this.nameSpace)
+                        .header("X-Vault-Namespace", this.nameSpace)
                         .connectTimeoutSeconds(config.getOpenTimeout())
                         .readTimeoutSeconds(config.getReadTimeout())
                         .body(requestJson.getBytes(StandardCharsets.UTF_8))
@@ -307,7 +306,7 @@ public class Pki {
                 final RestResponse restResponse = new Rest()//NOPMD
                         .url(String.format("%s/v1/%s/roles/%s", config.getAddress(), this.mountPath, roleName))
                         .header("X-Vault-Token", config.getToken())
-                        .optionalHeader("X-Vault-Namespace", this.nameSpace)
+                        .header("X-Vault-Namespace", this.nameSpace)
                         .connectTimeoutSeconds(config.getOpenTimeout())
                         .readTimeoutSeconds(config.getReadTimeout())
                         .sslVerification(config.getSslConfig().isVerify())
@@ -463,7 +462,7 @@ public class Pki {
                 final RestResponse restResponse = new Rest()//NOPMD
                         .url(String.format(endpoint, config.getAddress(), this.mountPath, roleName))
                         .header("X-Vault-Token", config.getToken())
-                        .optionalHeader("X-Vault-Namespace", this.nameSpace)
+                        .header("X-Vault-Namespace", this.nameSpace)
                         .body(requestJson.getBytes(StandardCharsets.UTF_8))
                         .connectTimeoutSeconds(config.getOpenTimeout())
                         .readTimeoutSeconds(config.getReadTimeout())

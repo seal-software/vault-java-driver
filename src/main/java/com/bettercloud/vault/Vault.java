@@ -5,6 +5,7 @@ import com.bettercloud.vault.api.Debug;
 import com.bettercloud.vault.api.Leases;
 import com.bettercloud.vault.api.Logical;
 import com.bettercloud.vault.api.Seal;
+import com.bettercloud.vault.api.database.Database;
 import com.bettercloud.vault.api.mounts.Mounts;
 import com.bettercloud.vault.api.pki.Pki;
 import com.bettercloud.vault.json.Json;
@@ -13,7 +14,6 @@ import com.bettercloud.vault.json.JsonValue;
 import com.bettercloud.vault.rest.Rest;
 import com.bettercloud.vault.rest.RestException;
 import com.bettercloud.vault.rest.RestResponse;
-
 import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
@@ -194,6 +194,10 @@ public class Vault {
         return new Pki(vaultConfig, mountPath);
     }
 
+    public Database database() { return new Database(vaultConfig); }
+
+    public Database database(final String mountPath) { return new Database(vaultConfig, mountPath); }
+
     /**
      * Returns the implementing class for Vault's lease operations (e.g. revoke, revoke-prefix).
      *
@@ -250,7 +254,7 @@ public class Vault {
             final RestResponse restResponse = new Rest()//NOPMD
                     .url(vaultConfig.getAddress() + "/v1/sys/mounts")
                     .header("X-Vault-Token", vaultConfig.getToken())
-                    .optionalHeader("X-Vault-Namespace", this.vaultConfig.getNameSpace())
+                    .header("X-Vault-Namespace", this.vaultConfig.getNameSpace())
                     .connectTimeoutSeconds(vaultConfig.getOpenTimeout())
                     .readTimeoutSeconds(vaultConfig.getReadTimeout())
                     .sslVerification(vaultConfig.getSslConfig().isVerify())
